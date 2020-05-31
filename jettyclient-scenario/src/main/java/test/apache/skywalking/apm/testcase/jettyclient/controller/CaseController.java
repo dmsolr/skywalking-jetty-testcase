@@ -15,12 +15,13 @@
  * limitations under the License.
  *
  */
+
 package test.apache.skywalking.apm.testcase.jettyclient.controller;
 
 import javax.annotation.PostConstruct;
 import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.api.Response;
-import org.eclipse.jetty.client.api.Result;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
@@ -31,9 +32,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/case")
 @PropertySource("classpath:application.properties")
 public class CaseController {
+    private static final Logger logger = LoggerFactory.getLogger(CaseController.class);
 
     @Value(value = "${jettyServer.host:localhost}")
     private String jettyServerHost;
+
+    @Value(value = "${jettyServer.port:18080}")
+    private String jettyServerPort;
 
     private HttpClient client = new HttpClient();
 
@@ -45,13 +50,16 @@ public class CaseController {
     @RequestMapping("/jettyclient-case")
     @ResponseBody
     public String jettyClientScenario() throws Exception {
-        client.newRequest("http://" + jettyServerHost + ":18080/jettyserver-case/case/receiveContext-0").send();
+        logger.info("jetty-client request.");
+        client.newRequest(
+            "http://" + jettyServerHost + ":" + jettyServerPort + "/jettyserver-case/case/receiveContext-0").send();
         return "Success";
     }
 
     @RequestMapping("/healthCheck")
     @ResponseBody
     public String healthCheck() throws Exception {
+        logger.info("jetty-client health check.");
         return "Success";
     }
 }

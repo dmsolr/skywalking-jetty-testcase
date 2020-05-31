@@ -15,18 +15,18 @@
  * limitations under the License.
  *
  */
+
 package test.apache.skywalking.apm.testcase.jettyserver;
 
 import java.net.InetSocketAddress;
-import test.apache.skywalking.apm.testcase.jettyserver.servlet.CaseServlet;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import test.apache.skywalking.apm.testcase.jettyserver.servlet.CaseServlet;
 
 public class Application {
 
     public static void main(String[] args) throws Exception {
-        Server jettyServer = new Server(new InetSocketAddress("0.0.0.0",
-            Integer.valueOf(18080)));
+        Server jettyServer = new Server(new InetSocketAddress("0.0.0.0", Integer.getInteger("server.port", 18080)));
         String contextPath = "/jettyserver-case";
         ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
         servletContextHandler.setContextPath(contextPath);

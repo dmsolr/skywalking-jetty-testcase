@@ -15,6 +15,7 @@
  * limitations under the License.
  *
  */
+
 package test.apache.skywalking.apm.testcase.jettyclient;
 
 import org.springframework.boot.SpringApplication;

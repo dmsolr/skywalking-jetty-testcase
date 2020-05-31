@@ -15,6 +15,7 @@
  * limitations under the License.
  *
  */
+
 package test.apache.skywalking.apm.testcase.jettyserver.servlet;
 
 import java.io.IOException;
@@ -23,11 +24,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CaseServlet extends HttpServlet{
+public class CaseServlet extends HttpServlet {
     public static String SERVLET_PATH = "/case/receiveContext-0";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println(">>>>>>>>>>>");
         try {
             java.util.Random random = new java.util.Random();
             Thread.sleep(random.nextInt(900) + 100);
