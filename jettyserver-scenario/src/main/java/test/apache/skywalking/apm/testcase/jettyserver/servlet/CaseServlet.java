@@ -29,10 +29,9 @@ public class CaseServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println(">>>>>>>>>>>");
         try {
             java.util.Random random = new java.util.Random();
-            Thread.sleep(random.nextInt(900) + 100);
+            Thread.sleep(random.nextInt(900) + 10);
             resp.getWriter().write("success");
         } catch (InterruptedException e) {
             resp.getWriter().write(e.getMessage());

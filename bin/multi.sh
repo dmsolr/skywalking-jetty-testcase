@@ -2,14 +2,19 @@
 
 home="$(cd "$(dirname $0)"; pwd)"
 
-export agent_opts="-javaagent:/root/skywalking/skywalking-agent/skywalking-agent.jar
+SW_HOME=${agent_home:-/Users/tenyzh/apache-skywalking-apm-bin/agent}
+
+export agent_opts="-javaagent:${SW_HOME}/skywalking-agent.jar
     -Dskywalking.collector.grpc_channel_check_interval=2
     -Dskywalking.collector.app_and_service_register_check_interval=2
     -Dskywalking.collector.discovery_check_interval=2
-    -Dskywalking.collector.backend_service=localhost:11800
-    -Dskywalking.logging.dir=/root/skywalking/skywalking-agent/logs
-    -DSW_KAFKA_BOOTSTRAP_SERVERS=localhost:9092
+    -Dskywalking.collector.backend_service=${COLLECTOR:-localhost:11800}
+    -Dskywalking.logging.dir=${SW_HOME}/logs
     -Xms256m -Xmx256m"
+
+if [[ -n $KAFKA_SEVERS ]]; then
+  agent_opts="$agent_opts -DSW_KAFKA_BOOTSTRAP_SERVERS=${KAFKA_SERVERS}"
+fi
 
 java -jar ${agent_opts} "-Dskywalking.agent.service_name=jettyserver-scenario" ${home}/../jettyserver-scenario/target/jettyserver-scenario.jar &
 pid1=$!

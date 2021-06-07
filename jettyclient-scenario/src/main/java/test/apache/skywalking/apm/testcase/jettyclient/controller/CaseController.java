@@ -20,6 +20,7 @@ package test.apache.skywalking.apm.testcase.jettyclient.controller;
 
 import javax.annotation.PostConstruct;
 import org.eclipse.jetty.client.HttpClient;
+import org.eclipse.jetty.client.api.ContentResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,8 +52,10 @@ public class CaseController {
     @ResponseBody
     public String jettyClientScenario() throws Exception {
         logger.info("jetty-client request.");
-        client.newRequest(
-            "http://" + jettyServerHost + ":" + jettyServerPort + "/jettyserver-case/case/receiveContext-0").send();
+        ContentResponse response = client.newRequest(
+            "http://" + jettyServerHost + ":" + jettyServerPort + "/jettyserver-case/case/receiveContext-0"
+        ).send();
+        logger.info(response.getContentAsString());
         return "Success";
     }
 
