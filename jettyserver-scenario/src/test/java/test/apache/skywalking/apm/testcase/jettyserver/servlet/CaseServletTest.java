@@ -13,36 +13,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 package test.apache.skywalking.apm.testcase.jettyserver.servlet;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.junit.Test;
 
-public class CaseServlet extends HttpServlet {
-    public static String SERVLET_PATH = "/case/receiveContext-0";
+public class CaseServletTest {
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            java.util.Random random = new java.util.Random();
-            Thread.sleep(random.nextInt(900) + 10);
-            resp.getWriter().write("success");
-        } catch (InterruptedException e) {
-            resp.getWriter().write(e.getMessage());
-        }
-        resp.getWriter().close();
-    }
-
-
-    public int foo() {
-        int a = 100;
-        a += 100;
-        return a;
+    @Test
+    public void testDoGet() {
+        new CaseServlet().foo();
     }
 }
